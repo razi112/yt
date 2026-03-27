@@ -1,0 +1,98 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "role": { "type": "string", "enum": ["user", "admin"] },
+        "subscribersCount": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "Video": {
+      "title": "Video",
+      "description": "Video metadata",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "thumbnailURL": { "type": "string" },
+        "videoURL": { "type": "string" },
+        "authorId": { "type": "string" },
+        "authorName": { "type": "string" },
+        "authorPhoto": { "type": "string" },
+        "viewsCount": { "type": "integer" },
+        "likesCount": { "type": "integer" },
+        "dislikesCount": { "type": "integer" },
+        "category": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "title", "videoURL", "authorId"]
+    },
+    "Comment": {
+      "title": "Comment",
+      "description": "Video comment",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "videoId": { "type": "string" },
+        "authorId": { "type": "string" },
+        "authorName": { "type": "string" },
+        "authorPhoto": { "type": "string" },
+        "text": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "videoId", "authorId", "text"]
+    },
+    "Like": {
+      "title": "Like",
+      "description": "User like/dislike on a video",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "videoId": { "type": "string" },
+        "type": { "type": "string", "enum": ["like", "dislike"] }
+      },
+      "required": ["uid", "videoId", "type"]
+    },
+    "Subscription": {
+      "title": "Subscription",
+      "description": "User subscription to a channel",
+      "type": "object",
+      "properties": {
+        "subscriberUid": { "type": "string" },
+        "targetUid": { "type": "string" }
+      },
+      "required": ["subscriberUid", "targetUid"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile collection"
+    },
+    "/videos/{videoId}": {
+      "schema": "Video",
+      "description": "Videos collection"
+    },
+    "/videos/{videoId}/comments/{commentId}": {
+      "schema": "Comment",
+      "description": "Comments on a video"
+    },
+    "/likes/{likeId}": {
+      "schema": "Like",
+      "description": "Likes and dislikes collection"
+    },
+    "/subscriptions/{subId}": {
+      "schema": "Subscription",
+      "description": "Subscriptions collection"
+    }
+  }
+}

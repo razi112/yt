@@ -1,0 +1,8 @@
+{
+  "name": "VidStream",
+  "description": "A full-stack YouTube-like video sharing platform with authentication, video uploading, and admin dashboard.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
